@@ -10,10 +10,10 @@ using namespace std;
 int main() {
   double d = 0.025;
   double g = 9.8;
-  double Re = 4.1 * pow(10.0, 4.0);
+  double Re = 4.1e4;
   double Ga, F, v;
 
-  for (int i = 0.0; i < 6.0; i++) {
+  for (int variable = 0.0; variable < 6.0; variable++) {
     cout << "Enter the value of v: ";
     cin >> v;
       
