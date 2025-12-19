@@ -11,7 +11,7 @@ int getWeekDay(int day, int month, int year) {
     month += 12;
     year -= 1;
   }
-    
+
   int yearPart = year % 100;
   int centuryPart = year / 100;
 
@@ -36,8 +36,7 @@ int main() {
   if (leapYear == 1) daysInMonth[1] = 29;
 
   for (int monthIndex = 1; monthIndex <= 12; monthIndex++) {
-    cout << "\n--- " << monthNames[monthIndex-1] << " " << year << " ---\n";
-    cout << "Mon Tue Wed Thu Fri Sat Sun\n";
+    cout << "\n--- " << monthNames[monthIndex-1] << " " << year << " ---\n" << "Mon Tue Wed Thu Fri Sat Sun\n";
 
     int firstWeekDay = getWeekDay(1, monthIndex, year);
     int startDay = (firstWeekDay + 6) % 7;
@@ -52,7 +51,8 @@ int main() {
         if (startDay == 7) {
             cout << "\n";
             startDay = 1;
-        } else startDay++;
+        } else {
+            ++startDay;
     }
     cout << "\n";
   }
