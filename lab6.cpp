@@ -14,12 +14,12 @@ struct Person {
   int day, month, year, house;
 };
 
-int main() {
+vector<Person> readPeopleFromFile() {
   vector<Person> people;
   ifstream file("people.txt");
   if (!file) {
     cout << "Cannot open file!" << endl;
-    return 1;
+    return people;
   }
 
   Person p;
@@ -29,17 +29,19 @@ int main() {
   }
 
   file.close();
+  return people;
+}
 
-  string queryStreet;
-  cout << "Enter street: ";
-  cin >> queryStreet;
+void printPeopleOnStreet(const vector<Person>& people, const string& queryStreet) {
   cout << "People living on the street " << queryStreet << ":" << endl;
   for (int index = 0; index < people.size(); index++) {
     if (people[index].street == queryStreet) {
       cout << people[index].surname << " " << people[index].name << endl;
     }
   }
+}
 
+int findYoungestIndex(const vector<Person>& people) {
   int youngestIndex = 0;
   for (int index = 1; index < people.size(); index++) {
     if (people[index].year > people[youngestIndex].year ||
@@ -51,9 +53,10 @@ int main() {
       youngestIndex = index;
     }
   }
- cout << "The youngest person: " << people[youngestIndex].surname 
-      << " " << people[youngestIndex].name << endl;
+  return youngestIndex;
+}
 
+int findOldestIndex(const vector<Person>& people) {
   int oldestIndex = 0;
   for (int index = 1; index < people.size(); index++) {
     if (people[index].year < people[oldestIndex].year ||
@@ -65,6 +68,27 @@ int main() {
       oldestIndex = index;
     }
   }
+  return oldestIndex;
+}
+
+int main() {
+  vector<Person> people = readPeopleFromFile();
+  
+  if (people.empty()) {
+    return 1;
+  }
+
+  string queryStreet;
+  cout << "Enter street: ";
+  cin >> queryStreet;
+  
+  printPeopleOnStreet(people, queryStreet);
+  
+  int youngestIndex = findYoungestIndex(people);
+  cout << "The youngest person: " << people[youngestIndex].surname 
+      << " " << people[youngestIndex].name << endl;
+  
+  int oldestIndex = findOldestIndex(people);
   cout << "The oldest person: " << people[oldestIndex].surname 
        << " " << people[oldestIndex].name << endl;
 
